@@ -15,13 +15,14 @@ typedef struct {
     int length;
 }SqList;
 
-// 初始化顺序表
-void InitList(SqList &L) {
+// 初始化顺序表，通过指针引用传递
+void InitList(SqList *L) {
     // 将顺序表内所有元素初始化为0
     for (int i=0;i<MaxSize;i++)
-        L.data[i]=0;
+        // 使用箭头运算符->操作传入函数的结构体指针
+        L->data[i]=0;
     // 顺序表长度初始化为0
-    L.length=0;
+    L->length=0;
 }
 
 int main() {
@@ -30,8 +31,8 @@ int main() {
 
     // 声明顺序表
     SqList L;
-    // 初始化
-    InitList(L);
+    // 初始化，引用传递L的地址
+    InitList(&L);
 
     return 0;
 }
