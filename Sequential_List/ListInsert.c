@@ -13,39 +13,48 @@ typedef struct {
 }SqList;
 
 // 初始化
-void InitList(SqList &L) {
+void InitList(SqList *L) {
     for (int i=0;i<MaxSize;i++)
-        L.data[i] = 0;
-    L.length = 0;
+        L->data[i] = 0;
+    L->length = 0;
 }
 
 // 插入函数
-bool ListInsert(SqList &L, int p, int v) {
+bool ListInsert(SqList *L, int p, int v) {
 
     // 若位置小于1或位置大于数组长度则返回false
-    if (p<1 || p>L.length+1)
+    if (p<1 || p>L->length+1)
         return false;
     // 若数组长度已达最大长度则返回false
-    if (L.length >= MaxSize)
+    if (L->length >= MaxSize)
         return false;
 
     // 数组从实际长度的最后一位开始向后移动一位，直至所需插入的位置
-    for (int i=L.length;i>=p;i--)
-        L.data[i] = L.data[i-1];
+    for (int i=L->length;i>=p;i--)
+        L->data[i] = L->data[i-1];
     // 将所需插入的数据写入该位置
-    L.data[p] = v;
-    L.length++;
+    L->data[p-1] = v;
+    L->length++;
 
     // 插入超过，返回true
     return true;
 
 }
 
-int main() {
-    SqList L;
-    InitList(L);
 
-    ListInsert(L, 3, 3);
+int main() {
+
+    SqList L;
+    InitList(&L);
+
+    // 顺序表的位序从1开始
+    for (int i=1;i<=5;i++)
+        ListInsert(&L, i, i);
+    ListInsert(&L, 3, 3);
+
+    // C语言数组的位序从0开始
+    for (int i=0;i<L.length;i++)
+        printf("%d ", L.data[i]);
 
     return 0;
 }
