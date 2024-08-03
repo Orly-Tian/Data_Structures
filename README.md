@@ -1,2 +1,2 @@
 # Data_Structures
-初始数据结构.
+初识数据结构.
