@@ -18,37 +18,35 @@ typedef struct LNode{
 
 
 // 初始化(带头节点)
+// 形参为节点指针的指针
 bool InitList_1(LinkList *L) {
-
-    // 申请一段节点大小的内存空间，以存放此节点
-    L = (LNode *)malloc(sizeof(LNode));
-
-    // 内存不足，分配失败
-    if (L == NULL)
+    // 解引用L为节点指针，赋值为申请的节点大小的内存空间首地址
+    (*L) = (LNode *)malloc(sizeof(LNode));
+    // 内存不足，初始化失败
+    if (*L == NULL)
         return false;
-
-    // 将空链表的指针域设置为Null
+    // 通过节点指针*L将节点内部的next设置为NULL
     (*L)->next = NULL;
-
+    // 初始化成功
     return true;
 }
 
 
 // 初始化(不带头节点)
 bool InitList_2(LinkList *L) {
-    L = NULL;
+    // 设置节点指针为NULL
+    *L = NULL;
     return true;
 }
 
 
+// 判断链表是否为空
+// 判空操作不需要修改实参，所以不需要传入指针
 bool Empty(LinkList L) {
-    // 链表未初始化
-    if (L == NULL)
+    // 链表未初始化或链表仅有头节点
+    if (L==NULL || L->next==NULL)
         return true;
-    if (L->next == NULL)
-        return true;
-    else
-        return false;
+    return false;
 }
 
 
