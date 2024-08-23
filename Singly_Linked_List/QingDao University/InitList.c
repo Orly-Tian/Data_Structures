@@ -45,7 +45,7 @@ bool DestroyList(LinkList *L) {
 }
 
 
-// 清空链表
+// 清空链表(释放除头指针与头节点的所有节点)
 bool ClearList(LinkList *L) {
     LNode *p, *temp;
     p = (*L)->next;
@@ -58,6 +58,84 @@ bool ClearList(LinkList *L) {
     return true;
 }
 
+
+// 返回表长(返回不含头节点的所有数据节点的个数)
+int ListLength(LinkList L) {
+    int count = 0;
+    LNode *p = L->next;
+    while (p) {
+        count++;
+        p = p->next;
+    }
+    return count;
+}
+
+
+// 按位查找
+bool GetElem(LinkList *L, int i, int *e) {
+    LNode *p = *L;
+    int j = 0;
+    while (p && j<i) {
+        p = p->next;
+        j++;
+    }
+    if (!p || j>i)
+        return false;
+    *e = p->data;
+    return true;
+}
+
+
+// 按值查找
+int LocateElem(LinkList L, int e) {
+    LNode *p = L->next;
+    int count = 1;
+    while (p && p->data!=e) {
+        p = p->next;
+        count++;
+    }
+    if (p)
+        return count;
+    return 0;
+}
+
+
+// 插入节点
+bool ListInsert(LinkList *L, int i, int e) {
+    LNode *p = *L;
+    int j = 0;
+    while (p && j<i-1) {
+        p = p->next;
+        j++;
+    }
+    if (!p || j>i-1)
+        return false;
+
+    LNode *temp = (LNode *)malloc(sizeof(LNode));
+    temp->data = e;
+    temp->next = p->next;
+    p->next = temp;
+    return true;
+}
+
+
+// 删除节点
+bool ListDelete(LinkList *L, int i, int *e) {
+    LNode *p = *L;
+    int j = 0;
+    while (p && j<i-1) {
+        p = p->next;
+        j++;
+    }
+    if (!(p->next) || j>i-1)
+        return false;
+
+    LNode *q = p->next;
+    *e = q->data;
+    p->next = q->next;
+    free(q);
+    return true;
+}
 
 
 int main() {
