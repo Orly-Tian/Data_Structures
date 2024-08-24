@@ -138,8 +138,51 @@ bool ListDelete(LinkList *L, int i, int *e) {
 }
 
 
+// 建立链表(头插法)
+bool CreatList(LinkList *L, int n) {
+    // 通过头指针建立头节点
+    *L = (LNode *)malloc(sizeof(LNode));
+    (*L)->next = NULL;
+
+    for (int i=0;i<n;i++) {
+        // 输入数据放入新节点
+        LNode *p = (LNode *)malloc(sizeof(LNode));
+        scanf("%d", &p->data);
+
+        // 将新节点插入头节点后
+        p->next = (*L)->next;
+        (*L)->next = p;
+    }
+    return true;
+}
+
+
+// 建立链表(尾插法)
+bool CreatList_2(LinkList *L, int n) {
+    // 通过头指针建立头节点
+    *L = (LNode *)malloc(sizeof(LNode));
+    (*L)->next = NULL;
+    // 初始化空链表的尾指针指向头节点
+    LNode *r = *L;
+
+    for (int i=0;i<n;i++) {
+        // 输入数据放入新节点
+        LNode *p = (LNode *)malloc(sizeof(LNode));
+        scanf("%d", &p->data);
+
+        // 通过尾指针将新节点插入至最后一个元素，并将尾指针指向新节点
+        p->next = NULL;
+        r->next = p;
+        r = p;
+    }
+    return true;
+}
+
+
 int main() {
+    
     LinkList L;
     InitList(&L);
 
+    return 0；
 }
